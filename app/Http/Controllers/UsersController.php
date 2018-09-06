@@ -9,7 +9,7 @@ use App\Photo;
 use App\User;
 use App\Role;
 use App\Http\Requests\UsersRequest;
-
+use Auth;
 
 
 
@@ -17,15 +17,23 @@ use App\Http\Requests\UsersRequest;
 
 class UsersController extends Controller
 {
+        public function __construct()
+    {
+        $this->middleware('user');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-
-
+        if(Auth::user()->id!=$id)
+        return redirect()->back()->with('msg','User not found');
+        $user = User::findOrFail($id);
+        
+        $roles= Role::pluck('name','id')->all();
+        return view('user.index',compact('user','roles'));
     }
 
     /**
@@ -70,6 +78,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->id!=$id)
+        return redirect()->back()->with('msg','User not found');
+
         $user = User::findOrFail($id);
         $roles= Role::pluck('name','id')->all();
         return view('user.edit',compact('user','roles'));
@@ -101,7 +112,9 @@ class UsersController extends Controller
         $user->update($input);
         Session::flash('updated_user','User Updated');
 
-         return redirect('user/' . $user->id );
+        return redirect ('user/' . $user->id );
+
+
     }
 
     /**

@@ -17,7 +17,9 @@ Route::get('/logout','Auth\LoginController@logout');
 
 Route::get('/', 'HomeController@index');
 
-Route::group(['middleware'=>'admin'],function(){
+
+
+// Route::group(['middleware'=>'admin'],function(){
 
 	Route::resource('/admin','AdminUsersController',['names'=>[
 		'index'=>'admin.index',
@@ -28,25 +30,29 @@ Route::group(['middleware'=>'admin'],function(){
 	Route::resource('department','DepartmentController',['names'=>[
 		'index'=>'department.index'
 		]]);
+// });
 
 
-});
+ // e kemi ven middleware tek UsersController
+Route::get('user/profile/{id}','UsersController@index');
+// ->middleware('user');
 
 
 
-Route::group(['middleware'=>'user'],function(){
+// Route::group(['middleware'=>'user'],function(){
 
 	Route::resource('/user','UsersController');
-});
+// });
 
 
-Route::get('admin.index', ['uses'=>'AdminUsersController@index']);
+Route::get('admin.index', 'AdminUsersController@index');
 Route::get('index/getposts', ['as'=>'index.getposts','uses'=>'AdminUsersController@getPosts']);
 
 
 
 Route::get('index', ['uses'=>'DepartmentController@index']);
 Route::get('index/getdepartments', ['as'=>'index.getdepartments','uses'=>'DepartmentController@getDepartments']);
+
 
 
 Route::get('chat', 'ChatController@chat')->middleware('auth');
@@ -63,5 +69,8 @@ Route::get('check',function(){
 	return session('chat');
 });
 
+
+Route::get('category-tree-view',['uses'=>'DepartmentController@index']);
+Route::post('add-category',['uses'=>'DepartmentController@store']);
 
 

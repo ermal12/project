@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Photo;
 use App\User;
 use App\Role;
+use App\Department;
 use App\Http\Requests;
 use App\Http\Requests\UsersRequest;
 use Datatables;
@@ -15,6 +16,11 @@ use DB;
 
 class AdminUsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }    
     /**
      * Display a listing of the resource.
      *
@@ -33,17 +39,13 @@ class AdminUsersController extends Controller
     }
         public function getPosts()
     {
-        // $users = DB::table('users')->select(['users.name','users.id','users.email','users.email','users.created_at','users.updated_at','users.role_id']);
-            $users = User::leftJoin('departments', 'users.department_id', '=',      'departments.id')
-                    ->select(['users.id','departments.name as department','users.name', 'users.email','users.created_at','users.updated_at']);
 
-            // ->leftJoin('roles','users.role_id' ,'=', 'roles.id')
-            // ->get();
+            $users = User::leftJoin('departments', 'users.department_id', '=',      'departments.id')
+                    ->select(['users.id','departments.name as departments','users.name', 'users.email','users.created_at','users.updated_at']);
+
+
         return Datatables()->of($users)
 
-          // ->addColumn('roles', function ($roles) {
-          //       return $roles->name;
-          //   })
 
 
           ->addColumn('action', function ($user) {
@@ -66,9 +68,9 @@ class AdminUsersController extends Controller
     {
         $roles = Role::pluck('name','id')->all();
 
+        $departments=Department::pluck('name','id')->all();
 
-
-        return view('admin.create',compact('roles'));
+        return view('admin.create',compact('roles','departments'));
     }
 
     /**
@@ -79,7 +81,7 @@ class AdminUsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
- $input = $request->all();
+         $input = $request->all();
 
         if( $file= $request->file('photo_id')) {
             $name = time() . $file->getClientOriginalName();
@@ -94,7 +96,7 @@ class AdminUsersController extends Controller
         Session::flash('created_user','User Created');
 
         return redirect ('/admin');
-
+        // return $request->all();
     }
 
     /**
@@ -118,7 +120,8 @@ class AdminUsersController extends Controller
     {
         $user = User::findOrFail($id);
         $roles= Role::pluck('name','id')->all();
-        return view('admin.edit',compact('user','roles'));
+        $departments =Department::pluck('name','id')->all();
+        return view('admin.edit',compact('user','roles','departments'));
     }
 
     /**
@@ -130,7 +133,7 @@ class AdminUsersController extends Controller
      */
     public function update(UsersRequest $request, $id)
     {
- $user=User::findOrFail($id);
+        $user=User::findOrFail($id);
         $input=$request->all();
 
         if($file = $request->file('photo_id')){
@@ -147,6 +150,7 @@ class AdminUsersController extends Controller
         Session::flash('updated_user','User Updated');
 
         return redirect ('/admin');
+        // return $request->all();
 
     }
 

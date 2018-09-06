@@ -44,10 +44,11 @@
 
 
 
-		<div class="form-group">
+<!-- 		<div class="form-group">
 		{!! Form::label('role_id','Role:') !!}
 		{!! Form::select ('role_id', $roles , null, ['class'=>'form-control'])!!}
-	</div>
+	</div> -->
+
 
 
 

@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+
 
 class RegisterController extends Controller
 {
@@ -28,7 +32,13 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function registered(Request $request, $user)
+  {
+        return redirect ('user/' . $user->id );
+
+
+  }
+
 
     /**
      * Create a new controller instance.
@@ -38,6 +48,9 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    // $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+
+
     }
 
     /**

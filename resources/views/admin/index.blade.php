@@ -11,6 +11,7 @@
 <body>
 
 
+
 <div class="container">
   <table id="users" class="table table-hover table-condensed" style="width:100%">
     <thead>
@@ -38,7 +39,7 @@ $(document).ready(function() {
         "ajax": "{{ route('index.getposts') }}",
         "columns": [
             {data: 'id', name: 'id'},
-            {data: 'department', name: 'department'},
+            {data: 'departments', name: 'departments',searchable: false},
             {data: 'name', name: 'name'},            
             {data: 'email', name: 'email'},   
             {data: 'updated_at', name: 'updated_at'},

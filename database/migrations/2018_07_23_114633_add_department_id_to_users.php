@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -14,6 +15,7 @@ class AddDepartmentIdToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('department_id')->nullable();
+            
         });
     }
 
@@ -25,11 +27,7 @@ class AddDepartmentIdToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            
-
             $table->dropColumn('department_id');
-        
         });
-
     }
 }

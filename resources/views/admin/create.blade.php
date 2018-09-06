@@ -43,6 +43,12 @@
 	</div>
 
 
+			<div class="form-group">
+		{!! Form::label('department_id','Department:') !!}
+		{!! Form::select ('department_id', [''=>'Choose Options'] + $departments, null, ['class'=>'form-control'])!!}
+	</div>
+
+
 
 
 

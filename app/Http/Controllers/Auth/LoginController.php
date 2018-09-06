@@ -39,9 +39,14 @@ class LoginController extends Controller
 
         // return redirect()->route('user.index',$user->id);
         // return redirect('admin/article/' . $id . '/edit')
-         return redirect('user/' . $user->id );
+         return redirect('user/profile/' . $user->id );
 
     }
+
+
+
+
+
     /**
      * Create a new controller instance.
      *

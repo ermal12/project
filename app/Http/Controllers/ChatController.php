@@ -4,6 +4,7 @@ use App\Events\ChatEvent;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class ChatController extends Controller
 {
 	/**
@@ -22,11 +23,20 @@ class ChatController extends Controller
     public function send(request $request)
     {
     	$user = User::find(Auth::id());
+
+
+         $message = $user->messages()->create([
+        'message' => $request->input('message')
+  ]);
+
+
     	$this->saveToSession($request);
+
     	event(new ChatEvent($request->message,$user));
     }
     public function saveToSession(request $request)
     {
+
     	session()->put('chat',$request->chat);
     }
     public function getOldMessage()
@@ -36,5 +46,6 @@ class ChatController extends Controller
     public function deleteSession()
     {
     	session()->forget('chat');
+
     }
 }

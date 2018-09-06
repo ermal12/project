@@ -15,8 +15,11 @@
 
 
 
-
-
+@if(session('msg'))
+<h2 class="alert">
+	{{session('msg')}}
+</h2>
+@endif
 
   <table class="table">
 

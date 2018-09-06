@@ -15,6 +15,16 @@ use DB;
 
 class DepartmentController extends Controller
 {
+
+
+    // public function manageCategory()
+    // {
+    //     $categories = Category::where('parent_id', '=', 0)->get();
+    //     $allCategories = Category::pluck('title','id')->all();
+    //     return view('categoryTreeview',compact('categories','allCategories'));
+    // }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -22,26 +32,16 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return view('department.index');
+      //  $users=User::all();
+        $parents = Department::where('parent_id', '=', 0)->get();
+        $data['departments'] = Department::all();
+        $departments=Department::pluck('name','id')->all();
+
+        return view('department.index',compact('parents','departments'),$data);
     }
 
 
-     public function getDepartments()
-    {
-        $departments = DB::table('departments')->select('*');
-        return Datatables()->of($departments)
 
-
-          ->addColumn('action', function ($department) {
-                return '<a href="department/'.$department->id.'/edit" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-            })
-            ->editColumn('id', '{{$id}}')
-            ->removeColumn('password')
-            ->make(true);
-
-            // ->make(true);
-
-    }
 
 
 
@@ -66,8 +66,25 @@ class DepartmentController extends Controller
     {
 
 
-        Department::create($request->all());
-        return redirect('/department');
+        // Department::create($request->all());
+        // return redirect('/department');
+
+        // $this->validate($request, [
+        //         'description' => 'required',
+        //     ]);
+
+  // dd($request->all());
+        
+        $input = $request->all();
+        $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
+        
+        Department::create($input);
+        return back();
+
+        // $input = $request->all();
+        // Department::create($input);
+        // return redirect ('/department');
+
 
 
     }

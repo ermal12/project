@@ -1,18 +1,20 @@
 <?php
 
 namespace App;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+        use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role_id','photo_id',
+        'name', 'email', 'password','role_id','photo_id','department_id'
     ];
 
     /**
@@ -35,9 +37,16 @@ class User extends Authenticatable
     }
 
 
-   public function department (){
+   public function department (){ 
         return $this->belongsTo('App\Department');
     }
+
+
+public function messages()
+{
+  return $this->hasMany(Message::class);
+}
+
 
 
  public function isAdmin(){
