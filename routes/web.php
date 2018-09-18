@@ -86,3 +86,6 @@ Route::get('check',function(){
 
 Route::get('category-tree-view',['uses'=>'DepartmentController@index']);
 Route::post('add-category',['uses'=>'DepartmentController@store']);
+
+
+Route::get('panel','AdminUsersController@panel')->name('panel');

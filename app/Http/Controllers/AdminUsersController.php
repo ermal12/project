@@ -20,7 +20,7 @@ class AdminUsersController extends Controller
     public function __construct()
     {
         $this->middleware('admin');
-    }    
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +33,9 @@ class AdminUsersController extends Controller
 
         // $users=User::all();
         // return view('admin.index',compact('users'));
-        // return Datatables::of($users)->make(true); 
+        // return Datatables::of($users)->make(true);
                  // return view('admin.index',compact('users'));
-        return view('admin.index');  
+        return view('admin.index');
     }
         public function getPosts()
     {
@@ -89,8 +89,8 @@ class AdminUsersController extends Controller
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
 
-        } 
-        
+        }
+
         $input['password'] = bcrypt($request->password);
         User::create($input);
         Session::flash('created_user','User Created');
@@ -107,7 +107,7 @@ class AdminUsersController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -166,5 +166,13 @@ class AdminUsersController extends Controller
     Session::flash('deleted_user','User deleted');
     return redirect('/admin');
 
+    }
+
+    public function panel()
+    {
+      $users=User::count();
+      $departments=Department::count();
+      $photos=Photo::count();
+      return view('admin.panel',compact('users','departments','photos'));
     }
 }
