@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container" >
+
 	<h1>Create Department</h1>
+
 
 	{!! Form::open(['method'=>'POST','action'=>'DepartmentController@store']) !!}
 

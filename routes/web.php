@@ -89,3 +89,4 @@ Route::post('add-category',['uses'=>'DepartmentController@store']);
 
 
 Route::get('panel','AdminUsersController@panel')->name('panel');
+Route::get('departments','DepartmentController@departments')->name('departments');

@@ -18,7 +18,7 @@
             <th>Id</th>
             <th>Department</th>
             <th>Description</th>
-            <th>Edit Department</th>            
+            <th>Edit Department</th>
 
 
         </tr>
@@ -40,10 +40,10 @@ $(document).ready(function() {
         "ajax": "{{ route('index.getdepartments') }}",
         "columns": [
             {data: 'id', name: 'id'},
-            {data: 'name', name: 'name'},             
-            {data: 'description', name: 'description'},           
+            {data: 'name', name: 'name'},
+            {data: 'description', name: 'description'},
             {data: 'action', name: 'action', orderable: false, searchable: false}
- 
+
 
 
 

@@ -17,7 +17,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: ["Users", "Departments","Photos"],
         datasets: [{
-            label: '# of Votes',
+            label: '# of Data',
             data: [{{$users}},{{$departments}},{{$photos}}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

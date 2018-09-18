@@ -10,7 +10,23 @@
 
 </head>
 <body>
-	<div class="container">     
+	<div class="container">
+			@include('includes.form-error')
+
+			@if(session('department_created'))
+		<h2 class="alert alert-success">
+			{{session('department_created')}}
+		</h2>
+		@endif
+
+
+			@if(session('department_deleted'))
+		<h2 class="alert alert-success">
+			{{session('department_deleted')}}
+		</h2>
+		@endif
+
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">Manage Departments TreeView</div>
 	  		<div class="panel-body">
@@ -23,7 +39,7 @@
 
 
 	          					@foreach($parents as $parent)
-	          						<li>{{$parent->name}}          		
+	          						<li>{{$parent->name}}
 	          						@if($parent->user->count())
       								<ul>
       									@foreach($parent->user as $userItem)
@@ -47,7 +63,7 @@
 	          						@endif
 
 
-		          								@if(subDepartments($item->id)->count())  
+		          								@if(subDepartments($item->id)->count())
 		          								<ul>
 	      											@foreach(subDepartments($item->id) as $subItem)
 	      											<li>{{$subItem->name}}
@@ -59,7 +75,7 @@
       									<li><h5>{{$subItem->name}}</h5></li>
       									@endforeach
       								</ul>
-	          						@endif	  
+	          						@endif
 
 
       													@if(subDepartments($subItem->id)->count())
@@ -73,7 +89,7 @@
       									<li><h5>{{$subSubItem->name}}</h5></li>
       									@endforeach
       								</ul>
-	          						@endif	 
+	          						@endif
 
       														@endforeach
       													</ul>
@@ -85,11 +101,11 @@
 	      											</ul>
 		          								@endif
 	          								@endforeach
-										
+
   										</ul>
   										@endif
 	          						</li>
-	          					
+
 	          					@endforeach
 				          	@endisset
 				        </ul>
@@ -115,20 +131,21 @@
 
 
 
-								<div class="form-group">
+								<div class="form-group col-sm-6">
 								{!! Form::submit('Create Department',['class'=>'btn btn-primary']) !!}
-								</div>					
+								</div>
 
 
 
 	  					{!! Form::close () !!}
 
+							<a href="{{route('departments') }}" class="btn btn-info"> Edit Departments </a>
 
 
 	  				</div>
 	  			</div>
 
-	  			
+
 	  		</div>
         </div>
     </div>

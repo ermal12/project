@@ -10,6 +10,7 @@ use App\Role;
 use App\Department;
 use App\Http\Requests;
 use App\Http\Requests\UsersRequest;
+use App\Http\Requests\DepartmentRequest;
 use Datatables;
 use DB;
 
@@ -62,7 +63,7 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
 
 
@@ -74,11 +75,13 @@ class DepartmentController extends Controller
         //     ]);
 
   // dd($request->all());
-        
+
         $input = $request->all();
         $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
-        
+
         Department::create($input);
+        Session::flash('department_created','Department Created');
+
         return back();
 
         // $input = $request->all();
@@ -97,7 +100,7 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -136,6 +139,12 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         Department::findOrFail($id)->delete();
+        Session::flash('department_deleted','Department Deleted');
         return redirect('/department');
+    }
+    public function departments()
+    {
+      $departments=Department::all();
+      return view('department.alldepartments', compact('departments'));
     }
 }
