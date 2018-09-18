@@ -7,6 +7,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+
+
 
 
 class LoginController extends Controller
@@ -56,4 +60,43 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+
+
+        /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+ public function handleProviderCallback()
+    {
+        $userSocial = Socialite::driver('facebook')->user();
+
+
+        $findUser = User::where('email',$userSocial->email)->first();
+
+        if($findUser){
+       Auth::login($findUser);
+       return redirect ('user/' . $findUser->id );
+
+        } else {
+
+       // return $userSocial->name;
+       $user = new User;
+       $user->name = $userSocial->name;
+       $user->email = $userSocial->email;
+       $user->password = bcrypt(123456);
+       $user->save();
+     Auth::login($user);
+       return redirect ('user/' . $user->id );
+        }
+
+    }
+
+
 }

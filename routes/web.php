@@ -12,6 +12,20 @@
 */
 
 Route::auth();
+
+//this is the problem
+
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
+
+
+
+
+Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
+Route::get('/dashboard2','HomeController@dashboard2')->name('dashboard2');
+
+
 Route::get('/logout','Auth\LoginController@logout');
 
 
@@ -72,5 +86,3 @@ Route::get('check',function(){
 
 Route::get('category-tree-view',['uses'=>'DepartmentController@index']);
 Route::post('add-category',['uses'=>'DepartmentController@store']);
-
-
