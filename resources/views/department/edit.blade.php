@@ -1,11 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 
 @section('content')
+<div class="content-wrapper">
 <div class="container" >
 	<h1>Edit Department</h1>
 
 
-		
+
 
 		<div class="col-sm-9">
 
@@ -22,7 +23,10 @@
 
 
 
-
+	<div class="form-group">
+{!! Form::label('department_id','Department:') !!}
+{!! Form::select ('parent_id', [''=>'Choose Options'] + $departments, null, ['class'=>'form-control'])!!}
+</div>
 
 
 
@@ -30,6 +34,7 @@
 		<div class="form-group">
 		{!! Form::submit('Update Department',['class'=>'btn btn-primary col-sm-6']) !!}
 		</div>
+
 
 
 
@@ -53,7 +58,7 @@
 
 
 </div>
-
+</div>
 
 
 

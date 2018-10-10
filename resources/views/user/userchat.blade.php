@@ -1,5 +1,5 @@
 
-@extends('layouts.admin.app')
+@extends('layouts.admin.user')
 @section('content')
 
 <!DOCTYPE html>

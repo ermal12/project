@@ -25,7 +25,7 @@
     padding:0 1em;
     line-height:2em;
     color:#369;
-    font-weight:700;
+    /* font-weight:700; */
     position:relative
 }
 .tree ul li:before {

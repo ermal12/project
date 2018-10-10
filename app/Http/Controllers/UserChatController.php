@@ -6,7 +6,7 @@ use App\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ChatController extends Controller
+class UserChatController extends Controller
 {
 	/**
 	 * Create a new controller instance.
@@ -21,7 +21,9 @@ class ChatController extends Controller
     {
 			$todos=Todo::paginate(5);
 			$todocount=Todo::count();
-    	return view('chat',compact('todos','todocount'));
+			$user = User::find(Auth::id());
+
+    	return view('user.userchat',compact('todos','todocount','user'));
     }
     public function send(request $request)
     {

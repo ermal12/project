@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class UsersRequest extends Request
+class AdminUsersRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class UsersRequest extends Request
         return [
             'name'=>'required',
             'email'=>'required',
+            'role_id'=>'required',
             'password'=>'required'
         ];
     }

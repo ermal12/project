@@ -1,16 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 
 @section('content')
-<!DOCTYPE html>
-<html>
-<head>
+
+<link href="/css/treeview.css" rel="stylesheet">
 	<title>Laravel Department Treeview Example</title>
 
-    <link href="/css/treeview.css" rel="stylesheet">
 
-</head>
-<body>
-	<div class="container">
+
+		<div class="content-wrapper">
+
 			@include('includes.form-error')
 
 			@if(session('department_created'))
@@ -149,11 +147,9 @@
 	  		</div>
         </div>
     </div>
-    <script src="/js/treeview.js"></script>
+
+	</div>
 
 
 
-</body>
-
-</html>
 @stop

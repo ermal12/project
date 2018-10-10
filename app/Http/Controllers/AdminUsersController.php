@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Session;
 use App\Photo;
 use App\User;
 use App\Role;
+use App\Todo;
 use App\Department;
 use App\Http\Requests;
-use App\Http\Requests\UsersRequest;
+use App\Http\Requests\AdminUsersRequest;
 use Datatables;
 use DB;
 
@@ -30,34 +31,42 @@ class AdminUsersController extends Controller
 
     public function index()
     {
+      $users=User::all();
+      $user=User::count();
+      $todos=Todo::paginate(5);
+      $todocount=Todo::count();
+      $departments=Department::count();
 
-        // $users=User::all();
-        // return view('admin.index',compact('users'));
-        // return Datatables::of($users)->make(true);
-                 // return view('admin.index',compact('users'));
-        return view('admin.index');
+        return view('admin.index',compact('users','user','departments','todos','todocount'));
     }
-        public function getPosts()
-    {
-
-            $users = User::leftJoin('departments', 'users.department_id', '=',      'departments.id')
-                    ->select(['users.id','departments.name as departments','users.name', 'users.email','users.created_at','users.updated_at']);
-
-
-        return Datatables()->of($users)
 
 
 
-          ->addColumn('action', function ($user) {
-                return '<a href="admin/'.$user->id.'/edit" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-            })
-            ->editColumn('id', '{{$id}}')
-            ->removeColumn('password')
-            ->make(true);
 
-            // ->make(true);
 
-    }
+    public function getPosts()
+{
+
+        $users = User::leftJoin('departments', 'users.department_id', '=',      'departments.id')
+                ->select(['users.id','departments.name as departments','users.name', 'users.email','users.created_at','users.updated_at']);
+
+
+    return Datatables()->of($users)
+
+
+
+      ->addColumn('action', function ($user) {
+            return '<a href="admin/'.$user->id.'/edit" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="admin/'.$user->id.'/delete" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i>Delete</a>  ';
+        })
+        ->editColumn('id', '{{$id}}')
+        ->removeColumn('password')
+        ->make(true);
+
+
+
+
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -69,8 +78,9 @@ class AdminUsersController extends Controller
         $roles = Role::pluck('name','id')->all();
 
         $departments=Department::pluck('name','id')->all();
-
-        return view('admin.create',compact('roles','departments'));
+        $todos=Todo::paginate(5);
+        $todocount=Todo::count();
+        return view('admin.create',compact('roles','departments','todos','todocount'));
     }
 
     /**
@@ -79,7 +89,7 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UsersRequest $request)
+    public function store(AdminUsersRequest $request)
     {
          $input = $request->all();
 
@@ -121,7 +131,9 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         $roles= Role::pluck('name','id')->all();
         $departments =Department::pluck('name','id')->all();
-        return view('admin.edit',compact('user','roles','departments'));
+        $todos=Todo::paginate(5);
+        $todocount=Todo::count();
+        return view('admin.edit',compact('user','roles','departments','todos','todocount'));
     }
 
     /**
@@ -131,7 +143,7 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UsersRequest $request, $id)
+    public function update(AdminUsersRequest $request, $id)
     {
         $user=User::findOrFail($id);
         $input=$request->all();
@@ -149,8 +161,8 @@ class AdminUsersController extends Controller
         $user->update($input);
         Session::flash('user_updated','User Updated');
 
-        return redirect ('/admin');
-        // return $request->all();
+        return redirect('/admin');
+
 
     }
 
@@ -173,6 +185,24 @@ class AdminUsersController extends Controller
       $users=User::count();
       $departments=Department::count();
       $photos=Photo::count();
-      return view('admin.panel',compact('users','departments','photos'));
+      $todos=Todo::paginate(5);
+      $todocount=Todo::count();
+      return view('admin.panel',compact('users','departments','photos','todos','todocount'));
     }
+
+    public function datatables()
+    {
+      $users=User::all();
+      $todos=Todo::paginate(5);
+      $todocount=Todo::count();
+      return view('admin.datatables', compact('users','todos','todocount'));
+    }
+    public function simpletable()
+    {
+      $users=User::paginate(5);
+      $todos=Todo::paginate(5);
+      $todocount=Todo::count();
+      return view('admin.simpletable', compact('users','todos','todocount'));
+    }
+
 }

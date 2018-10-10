@@ -1,10 +1,10 @@
 @extends('layouts.admin.app')
 @section('content')
 <div class="wrapper">
-
   <header class="main-header">
     <!-- Logo -->
     <a href="index2.html" class="logo">
+
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -306,7 +306,7 @@
             <li><a href="{{route('dashboard2')}}"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Layout Options</span>
@@ -328,7 +328,7 @@
               <small class="label pull-right bg-green">new</small>
             </span>
           </a>
-        </li>
+        </li> -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
@@ -344,7 +344,7 @@
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>UI Elements</span>
@@ -373,7 +373,7 @@
             <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
             <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
           </ul>
-        </li>
+        </li> -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-table"></i> <span>Tables</span>

@@ -13,10 +13,13 @@
 
 Route::auth();
 
-//this is the problem
+
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('login/google', 'Auth\LoginController@redirectToProvider1');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback1');
 
 
 
@@ -41,14 +44,18 @@ Route::get('/', 'HomeController@index');
 		'store'=>'admin.store',
 		'edit'=>'admin.edit'
 		]]);
+		Route::get('admin/{user}/delete', ['as' => 'admin.destroy', 'uses' => 'AdminUsersController@destroy']);
+
 	Route::resource('department','DepartmentController',['names'=>[
 		'index'=>'department.index'
 		]]);
 // });
 
+Route::resource('/todo','AdminTodo');
+
 
  // e kemi ven middleware tek UsersController
-Route::get('user/profile/{id}','UsersController@index');
+Route::get('user/profile/{id}','UsersController@index')->name('user.index');
 // ->middleware('user');
 
 
@@ -59,7 +66,7 @@ Route::get('user/profile/{id}','UsersController@index');
 // });
 
 
-Route::get('admin.index', 'AdminUsersController@index');
+Route::get('datatables', 'AdminUsersController@datatables');
 Route::get('index/getposts', ['as'=>'index.getposts','uses'=>'AdminUsersController@getPosts']);
 
 
@@ -69,7 +76,8 @@ Route::get('index/getdepartments', ['as'=>'index.getdepartments','uses'=>'Depart
 
 
 
-Route::get('chat', 'ChatController@chat')->middleware('auth');
+Route::get('chat', 'ChatController@chat')->name('chat')->middleware('auth');
+Route::get('userchat', 'UserChatController@chat')->name('userchat')->middleware('auth');
 
 Route::post('saveToSession','ChatController@saveToSession');
 
@@ -90,3 +98,5 @@ Route::post('add-category',['uses'=>'DepartmentController@store']);
 
 Route::get('panel','AdminUsersController@panel')->name('panel');
 Route::get('departments','DepartmentController@departments')->name('departments');
+Route::get('datatables','AdminUsersController@datatables')->name('datatables');
+Route::get('simpletable','AdminUsersController@simpletable')->name('simpletable');

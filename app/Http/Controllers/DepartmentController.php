@@ -8,6 +8,7 @@ use App\Photo;
 use App\User;
 use App\Role;
 use App\Department;
+use App\Todo;
 use App\Http\Requests;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\DepartmentRequest;
@@ -37,8 +38,9 @@ class DepartmentController extends Controller
         $parents = Department::where('parent_id', '=', 0)->get();
         $data['departments'] = Department::all();
         $departments=Department::pluck('name','id')->all();
-
-        return view('department.index',compact('parents','departments'),$data);
+        $todos=Todo::paginate(5);
+        $todocount=Todo::count();
+        return view('department.index',compact('parents','departments','todos','todocount'),$data);
     }
 
 
@@ -112,7 +114,10 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department=Department::findOrFail($id);
-        return view('department.edit',compact('department'));
+        $departments=Department::pluck('name','id')->all();
+        $todos=Todo::paginate(5);
+        $todocount=Todo::count();
+        return view('department.edit',compact('department','todos','todocount','departments'));
     }
 
     /**
@@ -126,6 +131,7 @@ class DepartmentController extends Controller
     {
         $department=Department::findOrFail($id);
         $input=$request->all();
+        $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
         $department->update($input);
         return redirect('/department');
     }
@@ -145,6 +151,8 @@ class DepartmentController extends Controller
     public function departments()
     {
       $departments=Department::all();
-      return view('department.alldepartments', compact('departments'));
+      $todos=Todo::paginate(5);
+      $todocount=Todo::count();
+      return view('department.alldepartments', compact('departments','todos','todocount'));
     }
 }

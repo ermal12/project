@@ -29,7 +29,7 @@ class User extends Authenticatable
     public  function role () {
         return $this->belongsTo('App\Role');
     }
- 
+
 
 
    public function photo (){
@@ -37,7 +37,7 @@ class User extends Authenticatable
     }
 
 
-   public function department (){ 
+   public function department (){
         return $this->belongsTo('App\Department');
     }
 
@@ -47,6 +47,11 @@ public function messages()
   return $this->hasMany(Message::class);
 }
 
+
+public function todos()
+{
+  return $this->hasMany('App\Todo');
+}
 
 
  public function isAdmin(){
@@ -58,7 +63,7 @@ public function messages()
 
 
  public function isUser(){
-        
+
 
         if($this->role->name == 'user'){
         return true;

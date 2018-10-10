@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UsersRequest extends Request
+class TodoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class UsersRequest extends Request
     public function rules()
     {
         return [
-            'name'=>'required',
-            'email'=>'required',
-            'password'=>'required'
+          'body'=>'required'
         ];
     }
 }

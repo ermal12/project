@@ -37,10 +37,16 @@ return [
 
 
     'facebook' => [
-    'client_id' => '906727416185093
-',         // Your GitHub Client ID
-    'client_secret' =>'7838b49aa25b1516ce9e093e84d664a3', // Your GitHub Client Secret
+    'client_id' => '307319486722440',         // Your Facebook Client ID
+    'client_secret' =>'bb11af4b47b75d547843c17ef3186bcb', // Your Facebook Client Secret
     'redirect' => 'http://localhost:8000/login/facebook/callback',
+],
+
+    'google' => [
+    'client_id' => '533007552611-69s07773kj0u88thrf1injvfsop045bj.apps.googleusercontent.com',
+    // Your Google Client ID
+    'client_secret' =>'MnmoDMKwgDVGRpXqwcaelNIm', // Your Google Client Secret
+    'redirect' => 'http://localhost:8000/login/google/callback',
 ],
 
 ];

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Photo;
 use App\User;
 use App\Role;
+use App\Todo;
 use App\Http\Requests\UsersRequest;
 use Auth;
 
@@ -31,9 +32,10 @@ class UsersController extends Controller
         if(Auth::user()->id!=$id)
         return redirect()->back()->with('msg','User not found');
         $user = User::findOrFail($id);
-        
+        $todos=Todo::paginate(5);
+        $todocount=Todo::count();
         $roles= Role::pluck('name','id')->all();
-        return view('user.index',compact('user','roles'));
+        return view('user.index',compact('user','roles','todos','todocount'));
     }
 
     /**
@@ -65,6 +67,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+      if(Auth::user()->id!=$id)
+      return redirect()->back()->with('msg','User not found');
+
         $user = User::findOrFail($id);
         $roles= Role::pluck('name','id')->all();
         return view('user.index',compact('user','roles'));
@@ -93,7 +98,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersRequest $request, $id)
     {
 
  $user=User::findOrFail($id);

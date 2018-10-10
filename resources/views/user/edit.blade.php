@@ -1,8 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.admin.user')
 
 @section('content')
-<div class="container" >
-	<h1>Edit User</h1>
+<div class="content-wrapper">
+	@include('includes.form-error')
+
+
+	<section class="content-header">
+		<h1>
+			 User Profile
+		</h1>
 
 
 		<div class="col-sm-3">
@@ -79,6 +85,7 @@
 
 	{!! Form::close() !!}
 
+</div>
 </div>
 
 
