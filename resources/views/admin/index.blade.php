@@ -173,7 +173,7 @@
                 <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
                 <!-- General tools such as edit or delete-->
                 <div class="tools">
-                  <a href="{{route('todo.edit',$todo->id)}}"<i class="fa fa-edit"></i></a>
+                  <a href="{{route('todo.edit',$todo->slug)}}"<i class="fa fa-edit"></i></a>
                   {!! Form::open(['route' => ['todo.destroy', $todo->id], 'method' => 'delete']) !!}
                   <button class="delete">
                         <i class="fa fa-trash-o" style="font-size: 10px;"></i>

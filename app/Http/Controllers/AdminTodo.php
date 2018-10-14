@@ -67,9 +67,9 @@ class AdminTodo extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-      $todo=Todo::findOrFail($id);
+      $todo=Todo::findBySlugOrFail($slug);
       $todos=Todo::paginate(5);
       $todocount=Todo::count();
         return view('todo.edit',compact('todo','todos','todocount'));

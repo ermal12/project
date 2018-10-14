@@ -82,7 +82,7 @@
 
                 <p>
                   {{ Auth::user()->name }}  - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <small>{{Auth::user()->created_at->diffForHumans()}}</small>
                 </p>
               </li>
               <!-- Menu Body -->

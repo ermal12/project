@@ -1,4 +1,5 @@
 <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+<script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 @stack('scripts')
 <!-- kjo posht prish pun per datatables -->
@@ -42,7 +43,6 @@
 
 
 <!-- jQuery 3 -->
-<script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('bower_components/chart.js/Chart.js')}}"></script>
 <!-- FastClick -->
